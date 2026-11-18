@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# YouTube Clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A YouTube-style browsing experience built in React: search, a category
+sidebar, video playback, channel pages and related videos. The data comes from
+the YouTube v3 API through RapidAPI, and the UI is Material UI.
 
-## Available Scripts
+**[▶ Live demo](https://youtube-clone-by-dei.netlify.app/)**
 
-In the project directory, you can run:
+![The feed: a category sidebar on the left and a grid of video cards with channel names](docs/screenshot.webp)
 
-### `npm start`
+## Running it locally
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You need Node 18+ and a RapidAPI key for the
+[YouTube v3](https://rapidapi.com/ytdlfree/api/youtube-v31) API.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+git clone https://github.com/adrielleestacio/Youtube-API.git
+cd Youtube-API
+npm install
+cp .env.example .env
+```
 
-### `npm test`
+Put your key in `.env`:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+REACT_APP_RAPID_API_KEY=your-key-here
+```
 
-### `npm run build`
+Then start it:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app opens at <http://localhost:3000>.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> Create React App inlines every `REACT_APP_*` variable into the JavaScript
+> bundle at build time, so this key is visible to anyone who opens the
+> deployed site. Use a key with a quota you are happy to expose, and keep it
+> separate from any key that bills you.
 
-### `npm run eject`
+## How it is put together
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Path | What it does |
+| --- | --- |
+| `src/utils/fetchFromAPI.js` | The single place the API is called. Everything else asks for a path and gets data back. |
+| `src/utils/constants.js` | The sidebar categories and their icons. |
+| `src/components/Feed.jsx` | The home page: category sidebar plus the selected category's videos. |
+| `src/components/SearchFeed.jsx` | Results for a search term from the URL. |
+| `src/components/VideoDetail.jsx` | A single video — player, title, channel, stats and related videos. |
+| `src/components/ChannelDetail.jsx` | A channel's banner, avatar and uploads. |
+| `src/components/Videos.jsx` | Renders a mixed list of video and channel results. |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Routing is `react-router-dom`; playback is `react-player`, which handles the
+embed rather than hand-rolling an iframe.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Built with
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+React · Material UI · React Router · Axios · react-player · RapidAPI (YouTube
+v3) · Netlify
